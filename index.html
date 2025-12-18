@@ -9,76 +9,72 @@
         :root {
             --bg: #f2f2f7; --card-bg: #ffffff; --text-main: #1c1c1e;
             --text-muted: #8e8e93; --primary: #007aff; --accent-blue: #3b438c;
-            --modal-overlay: rgba(0,0,0,0.2); --border: rgba(0,0,0,0.06);
-            --shadow: rgba(0,0,0,0.08); --input-bg: #f8fafc;
+            --modal-overlay: rgba(0,0,0,0.4); --border: rgba(0,0,0,0.06);
+            --shadow: rgba(0,0,0,0.04); --input-bg: #f8fafc;
         }
         [data-theme="dark"] {
             --bg: #000000; --card-bg: #1c1c1e; --text-main: #ffffff;
             --text-muted: #a1a1a6; --primary: #0a84ff; --border: rgba(255,255,255,0.1);
             --shadow: rgba(0,0,0,0.5); --input-bg: #2c2c2e;
         }
-        body { font-family: 'Figtree', sans-serif; background: var(--bg); margin: 0; padding: 0; color: var(--text-main); display: flex; justify-content: center; transition: background 0.5s ease; overflow-x: hidden; }
-        .app-shell { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        
-        /* Animación cuando el modal está abierto */
-        body.modal-open .app-shell { transform: scale(0.95); filter: blur(2px); }
-
+        body { font-family: 'Figtree', sans-serif; background: var(--bg); margin: 0; padding: 0; color: var(--text-main); display: flex; justify-content: center; transition: background 0.3s ease; }
+        .app-shell { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; }
         .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; padding-top: 10px; }
         .brand { display: flex; align-items: center; gap: 10px; }
         .logo { width: 32px; height: 32px; background: var(--primary); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; }
         .brand-name { font-weight: 900; color: var(--primary); font-size: 1.2rem; letter-spacing: -0.5px; }
+        .theme-toggle { background: var(--card-bg); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px var(--shadow); }
+        
+        h1 { font-weight: 900; font-size: 1.4rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .featured-section { background: var(--card-bg); border: 2px dashed var(--border); border-radius: 30px; padding: 15px; margin-bottom: 30px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; min-height: 80px; }
+        
+        .day-header { display: flex; align-items: center; gap: 12px; margin: 30px 0 15px 5px; }
+        .date-circle { width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; line-height: 1.1; }
+        .date-circle b { font-size: 1.2rem; font-weight: 800; display: block; }
+        .date-circle span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .card { 
-            background: var(--card-bg); padding: 18px; border-radius: 24px; border: 1px solid var(--border); 
-            box-shadow: 0 4px 12px var(--shadow); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            display: flex; flex-direction: column; gap: 6px; position: relative;
-        }
-        .card:active { transform: scale(0.92); }
+        .predex-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .full-width { grid-template-columns: 1fr; }
+        
+        .card { background: var(--card-bg); padding: 18px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 12px var(--shadow); cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; gap: 6px; }
+        .card:active { transform: scale(0.97); }
+        .addr { font-weight: 800; font-size: 1.05rem; line-height: 1.2; color: var(--text-main); }
+        .badge { background: var(--accent-blue); color: #fff; padding: 4px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; width: fit-content; }
+        .card-user { color: var(--primary); font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
+        .time { color: var(--text-muted); font-weight: 800; font-size: 0.8rem; }
 
-        /* MODAL ESTRUCTURA APPLE */
-        #modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            display: none; z-index: 1000; justify-content: center; align-items: center; 
-            background: var(--modal-overlay); backdrop-filter: blur(0px); 
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        #modal-overlay.active { display: flex; backdrop-filter: blur(15px); background: var(--modal-overlay); }
+        /* MODALES */
+        #modal-overlay, #fullscreen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 1000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        #modal-overlay { background: var(--modal-overlay); backdrop-filter: blur(12px); }
+        #fullscreen-overlay { background: #000; z-index: 2000; }
+        
+        .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; border-radius: 35px; padding: 25px; box-shadow: 0 40px 80px rgba(0,0,0,0.4); max-height: 90vh; overflow-y: auto; }
+        #modal-overlay.active, #fullscreen-overlay.active { display: flex; opacity: 1; }
+        
+        .territory-img { width: 100%; height: 180px; object-fit: cover; border-radius: 22px; margin-bottom: 15px; background: #eee; cursor: zoom-in; }
+        
+        /* FULLSCREEN IMAGE */
+        .full-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .close-fs { position: absolute; top: 25px; right: 25px; width: 45px; height: 45px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 1.5rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
 
-        .modal-box { 
-            background: var(--card-bg); width: 90%; max-width: 400px; border-radius: 35px; 
-            padding: 25px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); 
-            max-height: 85vh; overflow-y: auto; position: relative;
-            transform: scale(0.8) translateY(100px); opacity: 0;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        #modal-overlay.active .modal-box { transform: scale(1) translateY(0); opacity: 1; }
-
-        /* Resto de estilos igual para mantener consistencia */
-        .territory-img { width: 100%; height: 200px; object-fit: cover; border-radius: 22px; margin-bottom: 15px; cursor: zoom-in; }
-        .addr { font-weight: 800; font-size: 1.1rem; color: var(--text-main); }
-        .badge { background: var(--accent-blue); color: #fff; padding: 4px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 800; }
         .action-group { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
-        .action-btn { padding: 14px 22px; border-radius: 18px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; }
+        .action-btn { padding: 12px 18px; border-radius: 16px; font-weight: 800; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
         .btn-call { background: var(--primary); color: white; }
         .btn-maps { background: #ea4335; color: white; }
-
-        /* Fullscreen viewer */
-        #fullscreen-overlay { position: fixed; inset: 0; background: #000; display: none; z-index: 2000; justify-content: center; align-items: center; opacity: 0; transition: 0.4s; }
-        #fullscreen-overlay.active { display: flex; opacity: 1; }
     </style>
 </head>
 <body data-theme="light">
 
-    <div class="app-shell" id="app">
+    <div class="app-shell">
         <div class="header">
             <div class="brand">
                 <div class="logo">F</div>
                 <div class="brand-name">Fleming</div>
             </div>
-            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" style="border:none; background:none; font-size:1.5rem; cursor:pointer;">🌙</button>
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
         </div>
         <h1>Próximos Encuentros</h1>
-        <div class="featured-section" id="featured" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;"></div>
+        <div class="featured-section" id="featured"></div>
         <div id="schedule"></div>
     </div>
 
@@ -89,7 +85,8 @@
     </div>
 
     <div id="fullscreen-overlay" onclick="closeFs()">
-        <img src="" id="fs-img" style="max-width:100%; max-height:100%; object-fit:contain;">
+        <button class="close-fs">✕</button>
+        <img src="" id="fs-img" class="full-img">
     </div>
 
     <script>
@@ -102,8 +99,10 @@
             document.getElementById('themeBtn').innerText = isDark ? '🌙' : '☀️';
         }
 
-        function formatDriveUrl(id) {
-            return id && id.length > 5 ? `http://googleusercontent.com/profile/picture/4{id.trim()}` : "https://via.placeholder.com/400x200?text=Sin+Imagen";
+        function formatDriveUrl(idDrive) {
+            if (!idDrive || idDrive.length < 5) return "https://via.placeholder.com/400x200?text=Sin+Imagen";
+            let cleanId = idDrive.replace(/\s/g, ''); 
+            return `https://lh3.googleusercontent.com/d/${cleanId}`;
         }
 
         async function cargarDatos() {
@@ -115,25 +114,41 @@
                 const hoy = new Date(); hoy.setHours(0,0,0,0);
 
                 filas.forEach(linea => {
-                    const c = linea.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    const c = linea.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/); 
                     if (c.length < 5) return;
                     const partesFecha = c[1].split('/');
+                    if(partesFecha.length < 3) return;
                     const fechaPredex = new Date(partesFecha[2], partesFecha[1] - 1, partesFecha[0]);
                     if (fechaPredex < hoy) return;
 
                     const item = { 
-                        foto: formatDriveUrl(c[2]), h: c[3], d: c[4], t: c[5], e: c[6], tel: c[7], info: c[8], info2: c[9] 
+                        foto: formatDriveUrl(c[2]?.trim() || ""), 
+                        h: c[3]?.trim() || "", d: c[4]?.trim() || "", 
+                        t: c[5]?.trim() || "", e: c[6]?.trim() || "", 
+                        tel: c[7]?.trim() || "", info: c[8]?.trim() || "", info2: c[9]?.trim() || "", info: c[10]?.trim() || ""
                     };
 
-                    let dia = programa.find(d => d.fechaRaw === c[1]);
-                    if (dia) dia.items.push(item);
+                    let diaGrupo = programa.find(d => d.fechaRaw === c[1]);
+                    if (diaGrupo) { diaGrupo.items.push(item); } 
                     else {
                         const meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
-                        programa.push({ dia: c[0], n: partesFecha[0], m: meses[partesFecha[1]-1], fechaRaw: c[1], items: [item] });
+                        programa.push({ 
+                            dia: c[0].trim(), n: partesFecha[0], m: meses[parseInt(partesFecha[1])-1], 
+                            fechaRaw: c[1], items: [item] 
+                        });
                     }
                 });
+                programa.sort((a,b) => a.fechaRaw.split('/').reverse().join('').localeCompare(b.fechaRaw.split('/').reverse().join('')));
                 render(programa);
-            } catch (e) { console.log(e); }
+            } catch (e) { console.error("Error:", e); }
+        }
+
+        function createCard(p) {
+            const div = document.createElement('div');
+            div.className = "card";
+            div.onclick = () => openPop(p);
+            div.innerHTML = `<div class="time">• ${p.h}</div><div class="addr">${p.d}</div><div class="badge">T-${p.t}</div><div class="card-user">👤 ${p.e}</div>`;
+            return div;
         }
 
         function render(datos) {
@@ -141,38 +156,31 @@
             f.innerHTML = ''; s.innerHTML = '';
             let count = 0;
             datos.forEach(data => {
-                data.items.forEach(item => { if(count < 2) { f.appendChild(createCard(item)); count++; } });
+                data.items.forEach(item => { if (count < 2) { f.appendChild(createCard(item)); count++; } });
                 const wrap = document.createElement('div');
                 wrap.innerHTML = `<div class="day-header"><div class="date-circle"><b>${data.n}</b><span>${data.m}</span></div><div style="font-weight:900; font-size:1.2rem;">${data.dia}</div></div>`;
-                const grid = document.createElement('div'); grid.className = "predex-grid full-width";
+                const grid = document.createElement('div');
+                grid.className = "predex-grid full-width";
                 data.items.forEach(item => grid.appendChild(createCard(item)));
                 wrap.appendChild(grid); s.appendChild(wrap);
             });
         }
 
-        function createCard(p) {
-            const div = document.createElement('div');
-            div.className = "card";
-            div.onclick = () => openPop(p);
-            div.innerHTML = `<div style="font-size:0.8rem; font-weight:800; color:var(--text-muted)">• ${p.h}</div><div class="addr">${p.d}</div><div class="badge" style="width:fit-content">T-${p.t}</div><div style="font-size:0.8rem; font-weight:700; color:var(--primary)">👤 ${p.e}</div>`;
-            return div;
-        }
-
         function openPop(p) {
             const overlay = document.getElementById('modal-overlay');
-            document.body.classList.add('modal-open');
+            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.d)}`;
             document.getElementById('modal-content').innerHTML = `
-                <img src="${p.foto}" class="territory-img" onclick="openFs('${p.foto}')" onerror="this.src='https://via.placeholder.com/400x200?text=Error'">
-                <h2 style="margin:0; font-size:1.5rem; font-weight:900;">${p.d}</h2>
-                <div style="margin:10px 0; display:flex; gap:10px;"><span class="badge">T-${p.t}</span><span style="font-weight:800; color:var(--text-muted)">${p.h}</span></div>
-                <div style="background:var(--input-bg); padding:15px; border-radius:20px; margin-top:15px;">
-                    <small style="font-weight:800; color:var(--text-muted)">ENCARGADO</small>
-                    <div style="font-weight:800; color:var(--primary); margin-bottom:10px;">${p.e}</div>
-                    <small style="font-weight:800; color:var(--text-muted)">NOTAS</small>
-                    <div style="font-size:0.9rem;">${p.info}<br>${p.info2}</div>
+                <img src="${p.foto}" class="territory-img" onclick="openFs('${p.foto}')" onerror="this.src='https://via.placeholder.com/400x200?text=Error+Imagen'">
+                <h2 style="margin: 0; font-size: 1.4rem; font-weight: 900;">${p.d}</h2>
+                <div style="margin: 10px 0; display: flex; gap: 8px;"><span class="badge">T-${p.t}</span><span class="time">${p.h}</span></div>
+                <div style="background: var(--input-bg); padding: 15px; border-radius: 20px;">
+                    <small style="color:var(--text-muted); font-weight:800;">ENCARGADO</small>
+                    <div style="color:var(--primary); font-weight:800; margin-bottom:10px;">${p.e}</div>
+                    <small style="color:var(--text-muted); font-weight:800;">NO PASAR</small>
+                    <div style="font-size:0.9rem; line-height:1.4;">${p.info}<br>${p.info2}</div>
                 </div>
                 <div class="action-group">
-                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.d)}" target="_blank" class="action-btn btn-maps">Maps</a>
+                    <a href="${mapsUrl}" target="_blank" class="action-btn btn-maps">Maps</a>
                     <a href="tel:${p.tel}" class="action-btn btn-call">Llamar</a>
                 </div>
             `;
@@ -182,11 +190,11 @@
 
         function closePop() {
             const o = document.getElementById('modal-overlay');
-            document.body.classList.remove('modal-open');
             o.classList.remove('active');
-            setTimeout(() => o.style.display = 'none', 500);
+            setTimeout(() => o.style.display = 'none', 300);
         }
 
+        /* FUNCIONES DE PANTALLA COMPLETA */
         function openFs(src) {
             const fs = document.getElementById('fullscreen-overlay');
             document.getElementById('fs-img').src = src;
@@ -197,10 +205,12 @@
         function closeFs() {
             const fs = document.getElementById('fullscreen-overlay');
             fs.classList.remove('active');
-            setTimeout(() => fs.style.display = 'none', 400);
+            setTimeout(() => fs.style.display = 'none', 300);
         }
 
         cargarDatos();
     </script>
 </body>
+
 </html>
+
