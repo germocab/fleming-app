@@ -147,7 +147,7 @@
             const div = document.createElement('div');
             div.className = "card";
             div.onclick = () => openPop(p);
-            div.innerHTML = `<div class="time">• ${p.h}</div><div class="addr">${p.d}</div><div class="badge">T-${p.t}</div><div class="card-user">👤 ${p.e}</div>`;
+            div.innerHTML = `<div class="time">• ${p.h}</div><div class="addr">${p.d}</div><div class="badge">${p.t}</div><div class="card-user">👤 ${p.e}</div>`;
             return div;
         }
 
@@ -172,7 +172,7 @@
             document.getElementById('modal-content').innerHTML = `
                 <img src="${p.foto}" class="territory-img" onclick="openFs('${p.foto}')" onerror="this.src='https://via.placeholder.com/400x200?text=Error+Imagen'">
                 <h2 style="margin: 0; font-size: 1.4rem; font-weight: 900;">${p.d}</h2>
-                <div style="margin: 10px 0; display: flex; gap: 8px;"><span class="badge">T-${p.t}</span><span class="time">${p.h}</span></div>
+                <div style="margin: 10px 0; display: flex; gap: 8px;"><span class="badge">${p.t}</span><span class="time">${p.h}</span></div>
                 <div style="background: var(--input-bg); padding: 15px; border-radius: 20px;">
                     <small style="color:var(--text-muted); font-weight:800;">ENCARGADO</small>
                     <div style="color:var(--primary); font-weight:800; margin-bottom:10px;">${p.e}</div>
@@ -213,4 +213,5 @@
 </body>
 
 </html>
+
 
