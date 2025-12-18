@@ -125,7 +125,7 @@
                         foto: formatDriveUrl(c[2]?.trim() || ""), 
                         h: c[3]?.trim() || "", d: c[4]?.trim() || "", 
                         t: c[5]?.trim() || "", e: c[6]?.trim() || "", 
-                        tel: c[]?.trim() || "", info: c[9]?.trim() || "", info2: c[10]?.trim() || "" 
+                        tel: c[7]?.trim() || "", info: c[8]?.trim() || "", info2: c[9]?.trim() || "", info: c[10]?.trim() || ""
                     };
 
                     let diaGrupo = programa.find(d => d.fechaRaw === c[1]);
@@ -176,7 +176,7 @@
                 <div style="background: var(--input-bg); padding: 15px; border-radius: 20px;">
                     <small style="color:var(--text-muted); font-weight:800;">ENCARGADO</small>
                     <div style="color:var(--primary); font-weight:800; margin-bottom:10px;">${p.e}</div>
-                    <small style="color:var(--text-muted); font-weight:800;">NOTAS</small>
+                    <small style="color:var(--text-muted); font-weight:800;">NO PASAR</small>
                     <div style="font-size:0.9rem; line-height:1.4;">${p.info}<br>${p.info2}</div>
                 </div>
                 <div class="action-group">
@@ -211,4 +211,6 @@
         cargarDatos();
     </script>
 </body>
+
 </html>
+
