@@ -23,90 +23,73 @@
         body { 
             font-family: 'Figtree', sans-serif; 
             background: var(--bg); 
-            margin: 0; 
-            padding: 0; 
+            margin: 0; padding: 0; 
             color: var(--text-main); 
-            display: flex; 
-            justify-content: center; 
+            display: flex; justify-content: center; 
             transition: background 0.3s ease; 
         }
 
-        .app-shell { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; padding-bottom: 100px; }
+        .app-shell { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; padding-bottom: 120px; }
         
         /* HEADER */
-        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; padding-top: 10px; }
-        .brand { display: flex; align-items: center; gap: 10px; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-top: 10px; }
         .theme-toggle { background: var(--card-bg); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px var(--shadow); }
 
-        h1 { font-weight: 900; font-size: 1.4rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+        h1 { font-weight: 900; font-size: 1.4rem; margin-bottom: 15px; letter-spacing: -0.5px; }
 
-        /* SECCIONES Y TABS */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        /* SUB-NAV (CHIPS) SUPERIORES */
+        .sub-nav { display: flex; gap: 8px; margin-bottom: 20px; }
+        .chip { 
+            padding: 6px 14px; border-radius: 20px; background: var(--card-bg); 
+            border: 1px solid var(--border); font-size: 0.8rem; font-weight: 700; 
+            color: var(--text-muted); cursor: pointer; transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .chip.active { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+
+        /* CONTROL DE SECCIONES */
+        .tab-content, .sub-tab-content { display: none; }
+        .tab-content.active, .sub-tab-content.active { display: block; animation: fadeIn 0.3s ease; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* COMPONENTES DE PREDICACIÓN */
+        /* COMPONENTES DE CONTENIDO */
         .featured-section { background: var(--card-bg); border: 2px dashed var(--border); border-radius: 30px; padding: 15px; margin-bottom: 30px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; min-height: 80px; }
         .day-header { display: flex; align-items: center; gap: 12px; margin: 30px 0 15px 5px; }
         .date-circle { width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; line-height: 1.1; }
         .date-circle b { font-size: 1.2rem; font-weight: 800; }
         .date-circle span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; }
 
-        .predex-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-        .full-width { grid-template-columns: 1fr; }
-        
-        .card { background: var(--card-bg); padding: 18px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 12px var(--shadow); cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+        .card { background: var(--card-bg); padding: 18px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 12px var(--shadow); cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
         .card:active { transform: scale(0.97); }
         .addr { font-weight: 800; font-size: 1.05rem; color: var(--text-main); }
         .badge { background: var(--accent-blue); color: #fff; padding: 4px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; width: fit-content; }
         .card-user { color: var(--primary); font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
         .time { color: var(--text-muted); font-weight: 800; font-size: 0.8rem; }
 
-        /* NAVBAR INFERIOR */
-       .bottom-nav {
-    position: fixed; 
-    bottom: 25px; 
-    left: 50%; 
-    transform: translateX(-50%);
-    /* Ancho reducido */
-    width: 80%; 
-    max-width: 320px; 
-    background: var(--nav-bg);
-    backdrop-filter: blur(20px); 
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 30px; 
-    display: flex; 
-    padding: 6px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-    z-index: 100; 
-    border: 1px solid var(--border);
-}
-
-.nav-item {
-    flex: 1; 
-    text-align: center; 
-    padding: 10px; /* Un poco menos de padding para que sea más fina */
-    border-radius: 25px;
-    font-weight: 700; 
-    font-size: 0.9rem; /* Fuente ligeramente más pequeña para el nuevo ancho */
-    cursor: pointer; 
-    transition: all 0.3s ease; 
-    color: var(--text-muted);
-}
+        /* NAVBAR INFERIOR (MÁS ESTRECHA) */
+        .bottom-nav {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            width: 80%; max-width: 320px; background: var(--nav-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px; display: flex; padding: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 100; border: 1px solid var(--border);
+        }
+        .nav-item {
+            flex: 1; text-align: center; padding: 10px; border-radius: 25px;
+            font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; color: var(--text-muted);
+        }
         .nav-item.active { background: var(--primary); color: white; }
 
         /* MODALES */
         #modal-overlay, #fullscreen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 1000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
         #modal-overlay { background: var(--modal-overlay); backdrop-filter: blur(12px); }
-        #fullscreen-overlay { background: #000; z-index: 2000; }
-        .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; border-radius: 35px; padding: 25px; box-shadow: 0 40px 80px rgba(0,0,0,0.4); max-height: 90vh; overflow-y: auto; }
+        .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; border-radius: 35px; padding: 25px; max-height: 90vh; overflow-y: auto; }
         #modal-overlay.active, #fullscreen-overlay.active { display: flex; opacity: 1; }
-        .territory-img { width: 100%; height: 180px; object-fit: cover; border-radius: 22px; margin-bottom: 15px; background: #eee; }
-        .close-fs { position: absolute; top: 25px; right: 25px; width: 45px; height: 45px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+        .territory-img { width: 100%; height: 180px; object-fit: cover; border-radius: 22px; margin-bottom: 15px; }
         .action-group { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
         .action-btn { padding: 12px 18px; border-radius: 16px; font-weight: 800; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
         .btn-call { background: var(--primary); color: white; }
@@ -118,15 +101,31 @@
     <div class="app-shell">
         <div class="header">
             <div class="brand">
-                <img src="img/Frame 4.png" alt="Fleming" style="height: 32px;">
+                <img src="img/Frame 4.png" alt="Fleming" style="height: 30px;">
             </div>
             <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
         </div>
 
         <div id="tab-predicacion" class="tab-content active">
             <h1>Próximos Encuentros</h1>
-            <div class="featured-section" id="featured"></div>
-            <div id="schedule"></div>
+            
+            <div class="sub-nav">
+                <div class="chip active" onclick="switchSubTab('casa', this)">🏠 Casa en casa</div>
+                <div class="chip" onclick="switchSubTab('carritos', this)">🛒 Carritos</div>
+            </div>
+
+            <div id="sub-casa" class="sub-tab-content active">
+                <div class="featured-section" id="featured"></div>
+                <div id="schedule"></div>
+            </div>
+
+            <div id="sub-carritos" class="sub-tab-content">
+                <div class="card">
+                    <div class="addr">Punto de Testimonio Público</div>
+                    <div class="time">Horarios Próximamente</div>
+                    <div class="card-user">Consulta con el superintendente</div>
+                </div>
+            </div>
         </div>
 
         <div id="tab-reuniones" class="tab-content">
@@ -153,22 +152,28 @@
         </div>
     </div>
 
-    <div id="fullscreen-overlay" onclick="closeFs()">
-        <button class="close-fs">✕</button>
+    <div id="fullscreen-overlay" onclick="closeFs()" style="background:#000; position:fixed; top:0; left:0; width:100%; height:100%; display:none; z-index:2000; justify-content:center; align-items:center;">
         <img src="" id="fs-img" style="max-width: 100%; max-height: 100%; object-fit: contain;">
     </div>
 
     <script>
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFWBrkSPwm2KWYpN-rRKNq-HPT1jY1BOUujuevGLONgiZv8_Rn_ABRTx5XIgGG-zUBB-OHajXVd9YE/pub?output=csv';
 
-        // Lógica de navegación
+        // Navegación Principal
         function switchTab(tabName, element) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            
             document.getElementById('tab-' + tabName).classList.add('active');
             element.classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Navegación Secundaria (Chips)
+        function switchSubTab(subTab, element) {
+            document.querySelectorAll('.sub-tab-content').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            document.getElementById('sub-' + subTab).classList.add('active');
+            element.classList.add('active');
         }
 
         function toggleTheme() {
@@ -212,7 +217,6 @@
                         });
                     }
                 });
-                programa.sort((a,b) => a.fechaRaw.split('/').reverse().join('').localeCompare(b.fechaRaw.split('/').reverse().join('')));
                 render(programa);
             } catch (e) { console.error("Error:", e); }
         }
@@ -229,12 +233,13 @@
             const f = document.getElementById('featured'), s = document.getElementById('schedule');
             f.innerHTML = ''; s.innerHTML = '';
             let count = 0;
+            datos.sort((a,b) => a.fechaRaw.split('/').reverse().join('').localeCompare(b.fechaRaw.split('/').reverse().join('')));
             datos.forEach(data => {
                 data.items.forEach(item => { if (count < 2) { f.appendChild(createCard(item)); count++; } });
                 const wrap = document.createElement('div');
                 wrap.innerHTML = `<div class="day-header"><div class="date-circle"><b>${data.n}</b><span>${data.m}</span></div><div style="font-weight:900; font-size:1.2rem;">${data.dia}</div></div>`;
                 const grid = document.createElement('div');
-                grid.className = "predex-grid full-width";
+                grid.className = "full-width";
                 data.items.forEach(item => grid.appendChild(createCard(item)));
                 wrap.appendChild(grid); s.appendChild(wrap);
             });
@@ -284,4 +289,3 @@
     </script>
 </body>
 </html>
-
