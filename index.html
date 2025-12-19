@@ -11,52 +11,83 @@
             --text-muted: #8e8e93; --primary: #007aff; --accent-blue: #3b438c;
             --modal-overlay: rgba(0,0,0,0.4); --border: rgba(0,0,0,0.06);
             --shadow: rgba(0,0,0,0.04); --input-bg: #f8fafc;
+            --nav-bg: rgba(255, 255, 255, 0.8);
         }
         [data-theme="dark"] {
             --bg: #000000; --card-bg: #1c1c1e; --text-main: #ffffff;
             --text-muted: #a1a1a6; --primary: #0a84ff; --border: rgba(255,255,255,0.1);
             --shadow: rgba(0,0,0,0.5); --input-bg: #2c2c2e;
+            --nav-bg: rgba(28, 28, 30, 0.8);
         }
-        body { font-family: 'Figtree', sans-serif; background: var(--bg); margin: 0; padding: 0; color: var(--text-main); display: flex; justify-content: center; transition: background 0.3s ease; }
-        .app-shell { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Figtree', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--text-main); 
+            display: flex; 
+            justify-content: center; 
+            transition: background 0.3s ease; 
+        }
+
+        .app-shell { width: 100%; max-width: 500px; padding: 20px; box-sizing: border-box; padding-bottom: 100px; }
+        
+        /* HEADER */
         .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; padding-top: 10px; }
         .brand { display: flex; align-items: center; gap: 10px; }
-        .logo { width: 32px; height: 32px; background: var(--primary); border-radius: 9px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; }
-        .brand-name { font-weight: 900; color: var(--primary); font-size: 1.2rem; letter-spacing: -0.5px; }
         .theme-toggle { background: var(--card-bg); border: 1px solid var(--border); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px var(--shadow); }
-        
+
         h1 { font-weight: 900; font-size: 1.4rem; margin-bottom: 20px; letter-spacing: -0.5px; }
+
+        /* SECCIONES Y TABS */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* COMPONENTES DE PREDICACIÓN */
         .featured-section { background: var(--card-bg); border: 2px dashed var(--border); border-radius: 30px; padding: 15px; margin-bottom: 30px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; min-height: 80px; }
-        
         .day-header { display: flex; align-items: center; gap: 12px; margin: 30px 0 15px 5px; }
         .date-circle { width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; line-height: 1.1; }
-        .date-circle b { font-size: 1.2rem; font-weight: 800; display: block; }
-        .date-circle span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .date-circle b { font-size: 1.2rem; font-weight: 800; }
+        .date-circle span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; }
 
         .predex-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
         .full-width { grid-template-columns: 1fr; }
         
-        .card { background: var(--card-bg); padding: 18px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 12px var(--shadow); cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; gap: 6px; }
+        .card { background: var(--card-bg); padding: 18px; border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 4px 12px var(--shadow); cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
         .card:active { transform: scale(0.97); }
-        .addr { font-weight: 800; font-size: 1.05rem; line-height: 1.2; color: var(--text-main); }
+        .addr { font-weight: 800; font-size: 1.05rem; color: var(--text-main); }
         .badge { background: var(--accent-blue); color: #fff; padding: 4px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; width: fit-content; }
         .card-user { color: var(--primary); font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
         .time { color: var(--text-muted); font-weight: 800; font-size: 0.8rem; }
+
+        /* NAVBAR INFERIOR */
+        .bottom-nav {
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; background: var(--nav-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px; display: flex; padding: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 100; border: 1px solid var(--border);
+        }
+        .nav-item {
+            flex: 1; text-align: center; padding: 12px; border-radius: 25px;
+            font-weight: 700; cursor: pointer; transition: all 0.3s ease; color: var(--text-muted);
+        }
+        .nav-item.active { background: var(--primary); color: white; }
 
         /* MODALES */
         #modal-overlay, #fullscreen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 1000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
         #modal-overlay { background: var(--modal-overlay); backdrop-filter: blur(12px); }
         #fullscreen-overlay { background: #000; z-index: 2000; }
-        
         .modal-box { background: var(--card-bg); width: 90%; max-width: 400px; border-radius: 35px; padding: 25px; box-shadow: 0 40px 80px rgba(0,0,0,0.4); max-height: 90vh; overflow-y: auto; }
         #modal-overlay.active, #fullscreen-overlay.active { display: flex; opacity: 1; }
-        
-        .territory-img { width: 100%; height: 180px; object-fit: cover; border-radius: 22px; margin-bottom: 15px; background: #eee; cursor: zoom-in; }
-        
-        /* FULLSCREEN IMAGE */
-        .full-img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .close-fs { position: absolute; top: 25px; right: 25px; width: 45px; height: 45px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 1.5rem; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-
+        .territory-img { width: 100%; height: 180px; object-fit: cover; border-radius: 22px; margin-bottom: 15px; background: #eee; }
+        .close-fs { position: absolute; top: 25px; right: 25px; width: 45px; height: 45px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
         .action-group { display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; }
         .action-btn { padding: 12px 18px; border-radius: 16px; font-weight: 800; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
         .btn-call { background: var(--primary); color: white; }
@@ -68,14 +99,34 @@
     <div class="app-shell">
         <div class="header">
             <div class="brand">
-                <img src="img/Frame 4.png" alt="Fleming">
+                <img src="img/Frame 4.png" alt="Fleming" style="height: 32px;">
             </div>
             <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
         </div>
-        <h1>Próximos Encuentros</h1>
-        <div class="featured-section" id="featured"></div>
-        <div id="schedule"></div>
+
+        <div id="tab-predicacion" class="tab-content active">
+            <h1>Próximos Encuentros</h1>
+            <div class="featured-section" id="featured"></div>
+            <div id="schedule"></div>
+        </div>
+
+        <div id="tab-reuniones" class="tab-content">
+            <h1>Reuniones</h1>
+            <div class="card">
+                <div class="addr">Vida y Ministerio Cristianos</div>
+                <div class="time">Jueves • 19:30</div>
+            </div>
+            <div class="card">
+                <div class="addr">Reunión Pública y Atalaya</div>
+                <div class="time">Domingo • 10:00</div>
+            </div>
+        </div>
     </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('predicacion', this)">Predicación</div>
+        <div class="nav-item" onclick="switchTab('reuniones', this)">Reuniones</div>
+    </nav>
 
     <div id="modal-overlay" onclick="closePop()">
         <div class="modal-box" onclick="event.stopPropagation()">
@@ -85,23 +136,27 @@
 
     <div id="fullscreen-overlay" onclick="closeFs()">
         <button class="close-fs">✕</button>
-        <img src="" id="fs-img" class="full-img">
+        <img src="" id="fs-img" style="max-width: 100%; max-height: 100%; object-fit: contain;">
     </div>
 
     <script>
         const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRFWBrkSPwm2KWYpN-rRKNq-HPT1jY1BOUujuevGLONgiZv8_Rn_ABRTx5XIgGG-zUBB-OHajXVd9YE/pub?output=csv';
+
+        // Lógica de navegación
+        function switchTab(tabName, element) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
 
         function toggleTheme() {
             const b = document.body;
             const isDark = b.getAttribute('data-theme') === 'dark';
             b.setAttribute('data-theme', isDark ? 'light' : 'dark');
             document.getElementById('themeBtn').innerText = isDark ? '🌙' : '☀️';
-        }
-
-        function formatDriveUrl(idDrive) {
-            if (!idDrive || idDrive.length < 5) return "https://via.placeholder.com/400x200?text=Sin+Imagen";
-            let cleanId = idDrive.replace(/\s/g, ''); 
-            return `https://lh3.googleusercontent.com/d/${cleanId}`;
         }
 
         async function cargarDatos() {
@@ -121,11 +176,11 @@
                     if (fechaPredex < hoy) return;
 
                     const item = { 
-                        foto: formatDriveUrl(c[2]?.trim() || ""), 
+                        foto: c[2]?.trim() ? `https://lh3.googleusercontent.com/d/$${c[2].trim()}` : "https://via.placeholder.com/400x200", 
                         h: c[3]?.trim() || "", d: c[4]?.trim() || "", 
                         t: c[5]?.trim() || "", e: c[6]?.trim() || "", 
                         tel: c[7]?.trim() || "", info: c[8]?.trim() || "",
-                        info2: c[9]?.trim() || "", info3: c[10]?.trim() || ""
+                        info2: c[9]?.trim() || ""
                     };
 
                     let diaGrupo = programa.find(d => d.fechaRaw === c[1]);
@@ -168,19 +223,18 @@
 
         function openPop(p) {
             const overlay = document.getElementById('modal-overlay');
-            const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.d)}`;
             document.getElementById('modal-content').innerHTML = `
-                <img src="${p.foto}" class="territory-img" onclick="openFs('${p.foto}')" onerror="this.src='https://via.placeholder.com/400x200?text=Error+Imagen'">
+                <img src="${p.foto}" class="territory-img" onclick="openFs('${p.foto}')">
                 <h2 style="margin: 0; font-size: 1.4rem; font-weight: 900;">${p.d}</h2>
                 <div style="margin: 10px 0; display: flex; gap: 8px;"><span class="badge">${p.t}</span><span class="time">${p.h}</span></div>
                 <div style="background: var(--input-bg); padding: 15px; border-radius: 20px;">
                     <small style="color:var(--text-muted); font-weight:800;">ENCARGADO</small>
                     <div style="color:var(--primary); font-weight:800; margin-bottom:10px;">${p.e}</div>
-                    <small style="color:var(--text-muted); font-weight:800;">NO PASAR</small>
+                    <small style="color:var(--text-muted); font-weight:800;">INFORMACIÓN</small>
                     <div style="font-size:0.9rem; line-height:1.4;">${p.info}<br>${p.info2}</div>
                 </div>
                 <div class="action-group">
-                    <a href="${mapsUrl}" target="_blank" class="action-btn btn-maps">Maps</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.d)}" target="_blank" class="action-btn btn-maps">Maps</a>
                     <a href="tel:${p.tel}" class="action-btn btn-call">Llamar</a>
                 </div>
             `;
@@ -194,7 +248,6 @@
             setTimeout(() => o.style.display = 'none', 300);
         }
 
-        /* FUNCIONES DE PANTALLA COMPLETA */
         function openFs(src) {
             const fs = document.getElementById('fullscreen-overlay');
             document.getElementById('fs-img').src = src;
@@ -211,11 +264,4 @@
         cargarDatos();
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
